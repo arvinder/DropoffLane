@@ -13,6 +13,19 @@
 		660830BC14EDE172009BFDA4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 660830BA14EDE172009BFDA4 /* InfoPlist.strings */; };
 		660830BE14EDE172009BFDA4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 660830BD14EDE172009BFDA4 /* main.m */; };
 		660830C214EDE172009BFDA4 /* DLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 660830C114EDE172009BFDA4 /* DLAppDelegate.m */; };
+		660830CB14EDE1CD009BFDA4 /* OLArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 660830C914EDE1CD009BFDA4 /* OLArticleViewController.m */; };
+		660830CC14EDE1CD009BFDA4 /* OLArticleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 660830CA14EDE1CD009BFDA4 /* OLArticleViewController.xib */; };
+		660830D714EDE284009BFDA4 /* bt-facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 660830CE14EDE284009BFDA4 /* bt-facebook.png */; };
+		660830D814EDE284009BFDA4 /* bt-mail.png in Resources */ = {isa = PBXBuildFile; fileRef = 660830CF14EDE284009BFDA4 /* bt-mail.png */; };
+		660830D914EDE284009BFDA4 /* bt-save-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 660830D014EDE284009BFDA4 /* bt-save-active.png */; };
+		660830DA14EDE284009BFDA4 /* bt-save.png in Resources */ = {isa = PBXBuildFile; fileRef = 660830D114EDE284009BFDA4 /* bt-save.png */; };
+		660830DB14EDE284009BFDA4 /* bt-twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 660830D214EDE284009BFDA4 /* bt-twitter.png */; };
+		660830DC14EDE284009BFDA4 /* modal-email-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 660830D314EDE284009BFDA4 /* modal-email-background.png */; };
+		660830DD14EDE284009BFDA4 /* modal-facebook-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 660830D414EDE284009BFDA4 /* modal-facebook-background.png */; };
+		660830DE14EDE284009BFDA4 /* modal-twitter-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 660830D514EDE284009BFDA4 /* modal-twitter-background.png */; };
+		660830DF14EDE284009BFDA4 /* social-share.png in Resources */ = {isa = PBXBuildFile; fileRef = 660830D614EDE284009BFDA4 /* social-share.png */; };
+		660830E214EDE548009BFDA4 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 660830E114EDE548009BFDA4 /* Article.m */; };
+		660830EB14EDEA70009BFDA4 /* mountain-lion.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 660830EA14EDEA70009BFDA4 /* mountain-lion.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,12 +33,27 @@
 		660830B114EDE172009BFDA4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		660830B314EDE172009BFDA4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		660830B514EDE172009BFDA4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		660830B914EDE172009BFDA4 /* DropoffLane-Info.plist */ = {isa = PBXFileReference; path = "DropoffLane-Info.plist"; sourceTree = "<group>"; };
+		660830B914EDE172009BFDA4 /* DropoffLane-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DropoffLane-Info.plist"; sourceTree = "<group>"; };
 		660830BB14EDE172009BFDA4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		660830BD14EDE172009BFDA4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		660830BF14EDE172009BFDA4 /* DropoffLane-Prefix.pch */ = {isa = PBXFileReference; path = "DropoffLane-Prefix.pch"; sourceTree = "<group>"; };
-		660830C014EDE172009BFDA4 /* DLAppDelegate.h */ = {isa = PBXFileReference; path = DLAppDelegate.h; sourceTree = "<group>"; };
+		660830BF14EDE172009BFDA4 /* DropoffLane-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DropoffLane-Prefix.pch"; sourceTree = "<group>"; };
+		660830C014EDE172009BFDA4 /* DLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLAppDelegate.h; sourceTree = "<group>"; };
 		660830C114EDE172009BFDA4 /* DLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLAppDelegate.m; sourceTree = "<group>"; };
+		660830C814EDE1CD009BFDA4 /* OLArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OLArticleViewController.h; sourceTree = "<group>"; };
+		660830C914EDE1CD009BFDA4 /* OLArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLArticleViewController.m; sourceTree = "<group>"; };
+		660830CA14EDE1CD009BFDA4 /* OLArticleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OLArticleViewController.xib; sourceTree = "<group>"; };
+		660830CE14EDE284009BFDA4 /* bt-facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bt-facebook.png"; path = "Images/bt-facebook.png"; sourceTree = "<group>"; };
+		660830CF14EDE284009BFDA4 /* bt-mail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bt-mail.png"; path = "Images/bt-mail.png"; sourceTree = "<group>"; };
+		660830D014EDE284009BFDA4 /* bt-save-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bt-save-active.png"; path = "Images/bt-save-active.png"; sourceTree = "<group>"; };
+		660830D114EDE284009BFDA4 /* bt-save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bt-save.png"; path = "Images/bt-save.png"; sourceTree = "<group>"; };
+		660830D214EDE284009BFDA4 /* bt-twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bt-twitter.png"; path = "Images/bt-twitter.png"; sourceTree = "<group>"; };
+		660830D314EDE284009BFDA4 /* modal-email-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-email-background.png"; path = "Images/modal-email-background.png"; sourceTree = "<group>"; };
+		660830D414EDE284009BFDA4 /* modal-facebook-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-facebook-background.png"; path = "Images/modal-facebook-background.png"; sourceTree = "<group>"; };
+		660830D514EDE284009BFDA4 /* modal-twitter-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-twitter-background.png"; path = "Images/modal-twitter-background.png"; sourceTree = "<group>"; };
+		660830D614EDE284009BFDA4 /* social-share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "social-share.png"; path = "Images/social-share.png"; sourceTree = "<group>"; };
+		660830E014EDE548009BFDA4 /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
+		660830E114EDE548009BFDA4 /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
+		660830EA14EDEA70009BFDA4 /* mountain-lion.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "mountain-lion.jpg"; path = "Images/mountain-lion.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,8 +100,14 @@
 		660830B714EDE172009BFDA4 /* DropoffLane */ = {
 			isa = PBXGroup;
 			children = (
+				660830E014EDE548009BFDA4 /* Article.h */,
+				660830E114EDE548009BFDA4 /* Article.m */,
 				660830C014EDE172009BFDA4 /* DLAppDelegate.h */,
 				660830C114EDE172009BFDA4 /* DLAppDelegate.m */,
+				660830C814EDE1CD009BFDA4 /* OLArticleViewController.h */,
+				660830C914EDE1CD009BFDA4 /* OLArticleViewController.m */,
+				660830CA14EDE1CD009BFDA4 /* OLArticleViewController.xib */,
+				660830CD14EDE274009BFDA4 /* Images */,
 				660830B814EDE172009BFDA4 /* Supporting Files */,
 			);
 			path = DropoffLane;
@@ -88,6 +122,23 @@
 				660830BF14EDE172009BFDA4 /* DropoffLane-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		660830CD14EDE274009BFDA4 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				660830EA14EDEA70009BFDA4 /* mountain-lion.jpg */,
+				660830CE14EDE284009BFDA4 /* bt-facebook.png */,
+				660830CF14EDE284009BFDA4 /* bt-mail.png */,
+				660830D014EDE284009BFDA4 /* bt-save-active.png */,
+				660830D114EDE284009BFDA4 /* bt-save.png */,
+				660830D214EDE284009BFDA4 /* bt-twitter.png */,
+				660830D314EDE284009BFDA4 /* modal-email-background.png */,
+				660830D414EDE284009BFDA4 /* modal-facebook-background.png */,
+				660830D514EDE284009BFDA4 /* modal-twitter-background.png */,
+				660830D614EDE284009BFDA4 /* social-share.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +192,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				660830BC14EDE172009BFDA4 /* InfoPlist.strings in Resources */,
+				660830CC14EDE1CD009BFDA4 /* OLArticleViewController.xib in Resources */,
+				660830D714EDE284009BFDA4 /* bt-facebook.png in Resources */,
+				660830D814EDE284009BFDA4 /* bt-mail.png in Resources */,
+				660830D914EDE284009BFDA4 /* bt-save-active.png in Resources */,
+				660830DA14EDE284009BFDA4 /* bt-save.png in Resources */,
+				660830DB14EDE284009BFDA4 /* bt-twitter.png in Resources */,
+				660830DC14EDE284009BFDA4 /* modal-email-background.png in Resources */,
+				660830DD14EDE284009BFDA4 /* modal-facebook-background.png in Resources */,
+				660830DE14EDE284009BFDA4 /* modal-twitter-background.png in Resources */,
+				660830DF14EDE284009BFDA4 /* social-share.png in Resources */,
+				660830EB14EDEA70009BFDA4 /* mountain-lion.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +215,8 @@
 			files = (
 				660830BE14EDE172009BFDA4 /* main.m in Sources */,
 				660830C214EDE172009BFDA4 /* DLAppDelegate.m in Sources */,
+				660830CB14EDE1CD009BFDA4 /* OLArticleViewController.m in Sources */,
+				660830E214EDE548009BFDA4 /* Article.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,7 @@
 //
 
 #import "DLAppDelegate.h"
+#import "OLArticleViewController.h"
 
 @implementation DLAppDelegate
 
@@ -17,6 +18,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = [[OLArticleViewController alloc] initWithNibName:@"OLArticleViewController" bundle:nil];
     [self.window makeKeyAndVisible];
     return YES;
 }
