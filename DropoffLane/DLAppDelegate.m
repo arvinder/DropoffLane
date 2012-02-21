@@ -12,16 +12,33 @@
 @implementation DLAppDelegate
 
 @synthesize window = _window;
+@synthesize viewController = _viewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = [[OLArticleViewController alloc] initWithNibName:@"OLArticleViewController" bundle:nil];
+    self.viewController = [[[OLArticleViewController alloc] initWithNibName:@"OLArticleViewController" bundle:nil] autorelease];
+    self.window.rootViewController = self.viewController;
+    //self.window.rootViewController = [[OLArticleViewController alloc] initWithNibName:@"OLArticleViewController" bundle:nil];
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
+
+// This method will be used for iOS 4.2 version and prior.
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    return [[_viewController facebook] handleOpenURL:url];
+}
+
+
+
+// This method will be used for iOS versions grater than 4.2.
+- (BOOL)application:(UIApplication *)application openURL:(NSURL*)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [[_viewController facebook] handleOpenURL:url];
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
