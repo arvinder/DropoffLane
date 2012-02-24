@@ -10,6 +10,11 @@
 #import <QuartzCore/QuartzCore.h>
 #import "FBConnect.h"
 #import "Facebook.h"
+#import "SA_OAuthTwitterEngine.h"
+#import "URLShortener.h"
+
+#define kOAuthConsumerKey				@"9SMb1cUlE9bqusYYROA"		//REPLACE With Twitter App OAuth Key  
+#define kOAuthConsumerSecret			@"bsTol6AAdkbASKHmgfXpZn7Awi4MlsKnhNR7YcYdQc"		//REPLACE With Twitter App OAuth Secret
 
 @implementation OLArticleViewController
 
@@ -50,6 +55,16 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+-(void) initializeTW
+{
+    // Twitter Initialization / Login Code Goes Here
+    if(!_engine){  
+        _engine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];  
+        _engine.consumerKey    = kOAuthConsumerKey;  
+        _engine.consumerSecret = kOAuthConsumerSecret;  
+    } 
+}
+
 -(void) initializeFB
 {
     // Set the permissions.
@@ -70,7 +85,7 @@
     // Specify the lblUser label's message depending on the isConnected value.
     // If the access token not found and the user is not connected then prompt him/her to login.
     if (!isConnected) {
-        [lblUser setText:@"Tap on the Login to connect to Facebook"];
+        //[lblUser setText:@"Tap on the Login to connect to Facebook"];
     }
     else {
         // Get the user's name from the Facebook account. The message will be set later.
@@ -79,6 +94,39 @@
     
     // Initially hide the publish button.
     [btnPublish setHidden:YES];
+    [btnLogin setHidden:YES];
+}
+
+/**
+ * URLShortener delegate method that will be called when the URL was succesfully shortened.
+ */
+
+- (void) shortener: (URLShortener*) shortener didSucceedWithShortenedURL: (NSURL*) shortenedURL
+{
+    article.bitlyURL = [NSString stringWithFormat:@"%@",[shortenedURL absoluteString]];
+    NSLog(@"shortener: %@ didSucceedWithShortenedURL: %@", self, [shortenedURL absoluteString]);
+}
+
+/**
+ * URLShortener delegate method that will be called when the bit.ly service returned a non-200
+ * status code to our request.
+ */
+
+- (void) shortener: (URLShortener*) shortener didFailWithStatusCode: (int) statusCode
+{
+    NSLog(@"shortener: %@ didFailWithStatusCode: %d", self, statusCode);
+    article.bitlyURL = article.url;
+}
+
+/**
+ * URLShortener delegate method that will be called when a lower level error has occurred. Like
+ * network timeouts or host lookup failures.
+ */
+
+- (void) shortener: (URLShortener*) shortener didFailWithError: (NSError*) error
+{
+    NSLog(@"shortener: %@ didFailWithError: %@", self, [error localizedDescription]);
+    article.bitlyURL = article.url;
 }
 
 #pragma mark - View lifecycle
@@ -88,16 +136,32 @@
     [super viewDidLoad];
     
     article = [[Article alloc] init];
+    article.url = @"http://mashable.com/2012/02/16/osx-mountain-lion-top-new-features/";
+    URLShortener* shortener = [[URLShortener new] autorelease];
+    if (shortener != nil) {
+        shortener.delegate = self;
+        shortener.login = @"offlane";
+        shortener.key = @"R_7f1b672f4de4c6e8a8a41d0bd1bd604c";
+        shortener.url = [NSURL URLWithString: article.url];
+        [shortener execute];
+    }
+    
+    
     article.title = @"Apple OS X Mountain Lion: Top 15 New Features";
     article.summary = @"Apple just unveiled the next major upgrade to its core software, OS X. It’s called Mountain Lion, and it’s a doozy, bringing a lot of the features its customers use ever day on iPhones and iPads over to the Mac. Apple says Mountain Lion has 100 new features, from tiny details in the Safari web browser to wholesale changes in how instant messaging works.";
-    article.url = @"http://mashable.com/2012/02/16/osx-mountain-lion-top-new-features/";
+    
     article.image = [UIImage imageNamed:@"mountain-lion.jpg"];
+    article.imageURL = @"http://financialpress.com/wp-content/plugins/RSSPoster_PRO/cache/72b7a_mitchells.top.jpg";
+    
+    
+    
     [self loadArticle:article];
     
     [self setupFBModal];
     [self setupTWModal];
     
     [self initializeFB];
+    
     
 }
 
@@ -132,18 +196,23 @@
     if (!isConnected) {
         // In case the user is not connected (logged in) show the appropriate
         // images for both normal and highlighted states.
-        imgNormal = [UIImage imageNamed:@"LoginNormal.png"];
-        imgHighlighted = [UIImage imageNamed:@"LoginPressed.png"];
+        //imgNormal = [UIImage imageNamed:@"LoginNormal.png"];
+        //imgHighlighted = [UIImage imageNamed:@"LoginPressed.png"];
     }
     else {
         imgNormal = [UIImage imageNamed:@"LogoutNormal.png"];
         imgHighlighted = [UIImage imageNamed:@"LogoutPressed.png"];
+        
+        tempImage = [[UIImageView alloc] initWithImage:imgNormal];
+        [btnLogin setBackgroundImage:imgNormal forState:UIControlStateNormal];
+        [btnLogin setBackgroundImage:imgHighlighted forState:UIControlStateHighlighted];
+        [tempImage  release];
     }
     
     // Get the screen width to use it to center the login/logout button.
     // We’ll use a temporary image view to get the appopriate width and height.
     //float screenWidth = [UIScreen mainScreen].bounds.size.width;    
-    tempImage = [[UIImageView alloc] initWithImage:imgNormal];
+    /*tempImage = [[UIImageView alloc] initWithImage:imgNormal];
     //[btnLogin setFrame:CGRectMake(screenWidth / 2 - tempImage.frame.size.width / 2, btnLogin.frame.origin.y, tempImage.frame.size.width, tempImage.frame.size.height)];
     
     // Set the button’s images.
@@ -151,7 +220,7 @@
     [btnLogin setBackgroundImage:imgHighlighted forState:UIControlStateHighlighted];
     
     // Release the temporary image view.
-    [tempImage  release];
+    [tempImage  release];*/
 }
 
 -(void)showActivityView{
@@ -204,6 +273,7 @@
         //[lblUser setText:[NSString stringWithFormat:@"Welcome %@!", [result objectForKey:@"first_name"]]];
         // Show the publish button.
         [btnPublish setHidden:NO];
+        [btnLogin setHidden:NO];
     }
     else if ([result objectForKey:@"id"]) {
         // Stop showing the activity view.
@@ -213,6 +283,7 @@
         UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"Offlane" message:@"Your message has been posted on your wall!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [al show];
         [al release];
+        _modalFacebookView.hidden = YES;
     }
 }
 
@@ -239,6 +310,7 @@
     
     UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"Offlane" message:@"Login cancelled." delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
     [al show];
+    _modalFacebookView.hidden = YES;
 }
 
 -(void)fbDidLogout{
@@ -247,6 +319,7 @@
     
     // Hide the publish button.
     [btnPublish setHidden:YES];
+    [btnLogin setHidden:YES];
 }
 
 - (IBAction)LoginOrLogout {
@@ -260,7 +333,8 @@
     }
     else {
         [facebook logout:self];
-        [fbTextView setText:@"Tap on the Login to connect to Facebook"];
+        //[fbTextView setText:@"Tap on the Login to connect to Facebook"];
+        self.modalFacebookView.hidden = YES;
     }
     
     isConnected = !isConnected;
@@ -275,10 +349,10 @@
     // Create the parameters dictionary that will keep the data that will be posted.
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    @"Offlane", @"name",
-                                   article.url, @"link",
+                                   article.bitlyURL, @"link",
                                    fbArticleTitle.text, @"caption",
                                    fbArticleSummary.text, @"description",
-                                   @"http://fbrell.com/f8.jpg", @"picture",
+                                   article.imageURL, @"picture",
                                    fbTextView.text, @"message",              
                                    nil];
     
@@ -301,6 +375,13 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self initializeTW];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -343,6 +424,37 @@
 - (IBAction)touchEmailArticle:(id)sender
 {
     NSLog(@"touchEmailArticle:");
+    if ([MFMailComposeViewController canSendMail]) {
+        
+        MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+        mailViewController.mailComposeDelegate = self;
+
+        [mailViewController setSubject:article.title];
+        [mailViewController setMessageBody:[NSString stringWithFormat:@"<b>%@</b></br>\n"
+                                    "<font color=\"green\">%@</font></br></br>\n"
+                                    "<img src=\"%@\"></br></br>"
+                                    "%@</br>\n"
+                                    "--</br></br>\n"
+                                    "<font color=\"green\">OFFLANE</font> for iPad is the FREE digital newsstand you can take with you wherever you go. Just sync and go! read the latest news and blog posts without the need for WiFi or cellular access."
+                                    ,article.title,article.bitlyURL,article.imageURL,article.summary]
+                                    
+                                    isHTML:YES];
+        
+        [self presentModalViewController:mailViewController animated:YES];
+        [mailViewController release];
+        
+    }
+    
+    else {
+        
+        NSLog(@"Device is unable to send email in its current state.");
+        
+    }
+}
+
+-(void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (IBAction)touchFacebookArticle:(id)sender
@@ -351,6 +463,26 @@
     
     self.modalTwitterView.hidden = YES;
     self.modalFacebookView.hidden = !self.modalFacebookView.hidden;
+    
+    // If the user is not connected (logged in) then connect.
+    // Otherwise logout.
+    if (!isConnected) {
+        //Go Online
+        [facebook authorize:permissions];
+        
+        // Change the lblUser label's message.
+        [fbTextView setText:@"Add a Comment..."];
+        isConnected = !isConnected;
+    }
+    else {
+        //Go Offline
+        //[facebook logout:self];
+        //[fbTextView setText:@"Tap on the Login to connect to Facebook"];
+    }
+    
+    //isConnected = !isConnected;
+    //[self setLoginButtonImage];
+    
 }
 
 - (IBAction)touchTweetArticle:(id)sender
@@ -359,11 +491,40 @@
     
     self.modalFacebookView.hidden = YES;
     self.modalTwitterView.hidden = !self.modalTwitterView.hidden;
+    if(![_engine isAuthorized]){  
+        UIViewController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:_engine delegate:self];  
+        
+        if (controller){  
+            [self presentModalViewController: controller animated: YES];  
+        }  
+    }
+    twitterTextView.text = [NSString stringWithFormat:@"Now reading: %@.%@ (via @Offlane)",article.title,article.bitlyURL];
+    
 }
 
 - (IBAction)touchShareTwitter:(id)sender
 {
-    self.modalTwitterView.hidden = YES;
+    //self.modalTwitterView.hidden = YES;
+    
+    //Dismiss Keyboard
+	[twitterTextView resignFirstResponder];
+	
+    
+    if(![_engine isAuthorized]){  
+        UIViewController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:_engine delegate:self];  
+        
+        if (controller){  
+            [self presentModalViewController: controller animated: YES];  
+        }  
+    }else{
+        //Twitter Integration Code Goes Here
+        [_engine sendUpdate:twitterTextView.text];
+        /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"tweet sent" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+         [alert show];
+         [alert release];*/
+        //tweetTextField.text = @"";
+        
+    }
 }
 
 - (IBAction)touchShareFacebook:(id)sender
@@ -388,7 +549,7 @@
     twitterTextView.layer.borderWidth = 1.0f;
     twitterTextView.layer.borderColor = [[UIColor grayColor] CGColor];
     twitterTextView.textColor = [UIColor grayColor];
-    twitterTextView.text = [NSString stringWithFormat:@"Now reading: %@.http://bit.ly/R54GC (via @Offlane)",article.title];
+    //twitterTextView.text = [NSString stringWithFormat:@"Now reading: %@.%@ (via @Offlane)",article.title,article.bitlyURL];
     twitterArticleTitle.text = article.title;
     twitterArticleImage.image = article.image;
     twitterArticleSummary.text = article.summary;
@@ -411,5 +572,40 @@
 	[theTextField resignFirstResponder];
 	return YES;
 }
+
+// Twitter
+
+//=============================================================================================================================
+#pragma mark SA_OAuthTwitterEngineDelegate
+- (void) storeCachedTwitterOAuthData: (NSString *) data forUsername: (NSString *) username {
+	NSUserDefaults			*defaults = [NSUserDefaults standardUserDefaults];
+    
+	[defaults setObject: data forKey: @"authData"];
+	[defaults synchronize];
+}
+
+- (NSString *) cachedTwitterOAuthDataForUsername: (NSString *) username {
+	return [[NSUserDefaults standardUserDefaults] objectForKey: @"authData"];
+}
+
+//=============================================================================================================================
+#pragma mark TwitterEngineDelegate
+- (void) requestSucceeded: (NSString *) requestIdentifier {
+	//NSLog(@"Request %@ succeeded", requestIdentifier);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tweet sent successfully!! " message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+    [self.navigationController popViewControllerAnimated:YES];
+    self.modalTwitterView.hidden = YES;
+}
+
+- (void) requestFailed: (NSString *) requestIdentifier withError: (NSError *) error {
+	//NSLog(@"Request %@ failed with error: %@", requestIdentifier, error);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tweet Failed" message:[NSString stringWithFormat:@"%@",error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+    self.modalTwitterView.hidden = YES;
+}
+
 
 @end

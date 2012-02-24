@@ -8,10 +8,14 @@
 #import <UIKit/UIKit.h>
 #import "FBConnect.h"
 #import "Facebook.h"
+#import "SA_OAuthTwitterController.h"
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
+#import "URLShortener.h"
 
 @class Article;
 
-@interface OLArticleViewController : UIViewController <FBSessionDelegate, FBRequestDelegate, FBDialogDelegate>{
+@interface OLArticleViewController : UIViewController <FBSessionDelegate, FBRequestDelegate, FBDialogDelegate,UITextFieldDelegate, SA_OAuthTwitterControllerDelegate,UITextViewDelegate,MFMailComposeViewControllerDelegate,URLShortenerDelegate>{
     Article *article;
     
     UIButton *btnLogin;
@@ -24,6 +28,9 @@
     NSArray *permissions; 
     BOOL isConnected;
     UIAlertView *msgAlert;
+    
+    //Twitter
+    SA_OAuthTwitterEngine *_engine;
 }
 
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *ivSharing;
@@ -71,5 +78,6 @@
 
 -(void)checkForPreviouslySavedAccessTokenInfo;
 -(void)setLoginButtonImage;
+
 
 @end

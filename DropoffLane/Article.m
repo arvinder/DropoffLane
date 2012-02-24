@@ -13,5 +13,7 @@
 @synthesize url;
 @synthesize summary;
 @synthesize image;
+@synthesize imageURL;
+@synthesize bitlyURL;
 
 @end

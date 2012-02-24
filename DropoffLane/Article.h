@@ -13,5 +13,7 @@
 @property (nonatomic, retain) NSString *url;
 @property (nonatomic, retain) NSString *summary;
 @property (nonatomic, retain) UIImage  *image;
+@property (nonatomic, retain) NSString  *imageURL;
+@property (nonatomic, retain) NSString  *bitlyURL;
 
 @end
