@@ -32,7 +32,7 @@
     //Twitter
     SA_OAuthTwitterEngine *_engine;
 }
-
+@property (unsafe_unretained, nonatomic) IBOutlet UIImageView *userFBProfileImage;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *ivSharing;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *btnSaveArticle;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *btnEmailArticle;

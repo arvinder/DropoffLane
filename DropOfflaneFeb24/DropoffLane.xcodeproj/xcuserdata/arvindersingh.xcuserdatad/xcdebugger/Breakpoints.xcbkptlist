@@ -9,11 +9,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "DropoffLane/OLArticleViewController.m"
-         timestampString = "351843983.531947"
+         timestampString = "351789186.58848"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "344"
-         endingLineNumber = "344"
+         startingLineNumber = "328"
+         endingLineNumber = "328"
          landmarkName = "-LoginOrLogout"
          landmarkType = "5">
       </FileBreakpoint>
@@ -23,11 +23,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "DropoffLane/OLArticleViewController.m"
-         timestampString = "351843983.531947"
+         timestampString = "351789186.58848"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "317"
-         endingLineNumber = "317"
+         startingLineNumber = "301"
+         endingLineNumber = "301"
          landmarkName = "-fbDidLogin"
          landmarkType = "5">
       </FileBreakpoint>
@@ -37,11 +37,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "DropoffLane/OLArticleViewController.m"
-         timestampString = "351842501.05416"
+         timestampString = "351789186.58848"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "199"
-         endingLineNumber = "199"
+         startingLineNumber = "196"
+         endingLineNumber = "196"
          landmarkName = "-setLoginButtonImage"
          landmarkType = "5">
       </FileBreakpoint>
@@ -51,11 +51,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "DropoffLane/OLArticleViewController.m"
-         timestampString = "351843983.531947"
+         timestampString = "351789186.58848"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "363"
-         endingLineNumber = "363"
+         startingLineNumber = "347"
+         endingLineNumber = "347"
          landmarkName = "-Publish"
          landmarkType = "5">
       </FileBreakpoint>

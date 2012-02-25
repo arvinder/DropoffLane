@@ -18,6 +18,7 @@
 
 @implementation OLArticleViewController
 
+@synthesize userFBProfileImage = _userFBProfileImage;
 @synthesize ivSharing = _ivSharing;
 @synthesize btnSaveArticle = _btnSaveArticle;
 @synthesize btnEmailArticle = _btnEmailArticle;
@@ -95,6 +96,8 @@
     // Initially hide the publish button.
     [btnPublish setHidden:YES];
     [btnLogin setHidden:YES];
+    
+    
 }
 
 /**
@@ -188,9 +191,9 @@
     }
 }
 -(void)setLoginButtonImage{
-    UIImage *imgNormal;
-    UIImage *imgHighlighted;
-    UIImageView *tempImage;
+    //UIImage *imgNormal;
+    //UIImage *imgHighlighted;
+    //UIImageView *tempImage;
     
     // Check if the user is connected or not.
     if (!isConnected) {
@@ -200,13 +203,14 @@
         //imgHighlighted = [UIImage imageNamed:@"LoginPressed.png"];
     }
     else {
-        imgNormal = [UIImage imageNamed:@"LogoutNormal.png"];
-        imgHighlighted = [UIImage imageNamed:@"LogoutPressed.png"];
+        //[facebook requestWithGraphPath:@"me/picture" andDelegate:self];
+        //imgNormal = [UIImage imageNamed:@"LogoutNormal.png"];
+        //imgHighlighted = [UIImage imageNamed:@"LogoutPressed.png"];
         
-        tempImage = [[UIImageView alloc] initWithImage:imgNormal];
-        [btnLogin setBackgroundImage:imgNormal forState:UIControlStateNormal];
-        [btnLogin setBackgroundImage:imgHighlighted forState:UIControlStateHighlighted];
-        [tempImage  release];
+        //tempImage = [[UIImageView alloc] initWithImage:imgNormal];
+        //[btnLogin setBackgroundImage:imgNormal forState:UIControlStateNormal];
+        //[btnLogin setBackgroundImage:imgHighlighted forState:UIControlStateHighlighted];  //Uncomment to show logout
+        //[tempImage  release];
     }
     
     // Get the screen width to use it to center the login/logout button.
@@ -221,6 +225,7 @@
     
     // Release the temporary image view.
     [tempImage  release];*/
+    
 }
 
 -(void)showActivityView{
@@ -255,7 +260,6 @@
     NSLog(@"received response");
 }
 
-
 -(void)request:(FBRequest *)request didLoad:(id)result{
     // With this method we’ll get any Facebook response in the form of an array.
     // In this example the method will be used twice. Once to get the user’s name to
@@ -266,6 +270,8 @@
         result = [result objectAtIndex:0];
     }
     
+    if ([result isKindOfClass:[NSDictionary class]])
+    {
     // Check it the “first_name” is contained into the returned data.
     if ([result objectForKey:@"first_name"]) {
         // If the current result contains the "first_name" key then it's the user's data that have been returned.
@@ -273,7 +279,9 @@
         //[lblUser setText:[NSString stringWithFormat:@"Welcome %@!", [result objectForKey:@"first_name"]]];
         // Show the publish button.
         [btnPublish setHidden:NO];
-        [btnLogin setHidden:NO];
+        //[btnLogin setHidden:NO]; // Uncomment to show logout
+        [facebook requestWithGraphPath:@"me/picture" andDelegate:self];
+        
     }
     else if ([result objectForKey:@"id"]) {
         // Stop showing the activity view.
@@ -284,6 +292,14 @@
         [al show];
         [al release];
         _modalFacebookView.hidden = YES;
+    }
+    }
+    if ([result isKindOfClass:[NSData class]])
+    {
+        NSLog(@"Profile Picture");
+        //[profilePicture release];
+        //profilePicture = [[UIImage alloc] initWithData: result];
+        self.userFBProfileImage.image = [UIImage imageWithData:result];
     }
 }
 
@@ -496,6 +512,7 @@
         
         if (controller){  
             [self presentModalViewController: controller animated: YES];  
+            self.modalTwitterView.hidden = YES;
         }  
     }
     twitterTextView.text = [NSString stringWithFormat:@"Now reading: %@.%@ (via @Offlane)",article.title,article.bitlyURL];
@@ -582,6 +599,7 @@
     
 	[defaults setObject: data forKey: @"authData"];
 	[defaults synchronize];
+    self.modalTwitterView.hidden = NO;
 }
 
 - (NSString *) cachedTwitterOAuthDataForUsername: (NSString *) username {
@@ -590,6 +608,7 @@
 
 //=============================================================================================================================
 #pragma mark TwitterEngineDelegate
+
 - (void) requestSucceeded: (NSString *) requestIdentifier {
 	//NSLog(@"Request %@ succeeded", requestIdentifier);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tweet sent successfully!! " message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
