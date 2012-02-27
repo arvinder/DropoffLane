@@ -19,6 +19,7 @@
 @implementation OLArticleViewController
 
 @synthesize userFBProfileImage = _userFBProfileImage;
+@synthesize userTWProfileImage = _userTWProfileImage;
 @synthesize ivSharing = _ivSharing;
 @synthesize btnSaveArticle = _btnSaveArticle;
 @synthesize btnEmailArticle = _btnEmailArticle;
@@ -253,6 +254,7 @@
     [defaults setObject:[facebook accessToken] forKey:@"FBAccessTokenKey"];
     [defaults setObject:[facebook expirationDate] forKey:@"FBExpirationDateKey"];
     [defaults synchronize];
+    isConnected = YES;
 }
 
 -(void)request:(FBRequest *)request didReceiveResponse:(NSURLResponse *)response {
@@ -488,7 +490,7 @@
         
         // Change the lblUser label's message.
         [fbTextView setText:@"Add a Comment..."];
-        isConnected = !isConnected;
+        //isConnected = !isConnected;
     }
     else {
         //Go Offline
@@ -500,6 +502,7 @@
     //[self setLoginButtonImage];
     
 }
+
 
 - (IBAction)touchTweetArticle:(id)sender
 {
@@ -595,14 +598,25 @@
 //=============================================================================================================================
 #pragma mark SA_OAuthTwitterEngineDelegate
 - (void) storeCachedTwitterOAuthData: (NSString *) data forUsername: (NSString *) username {
-	NSUserDefaults			*defaults = [NSUserDefaults standardUserDefaults];
+    NSURL *theTWProfilePicURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@.json",username]];
+    self.userTWProfileImage.image =  [UIImage imageWithData:[NSData dataWithContentsOfURL:theTWProfilePicURL]];
     
+    NSUserDefaults			*defaults = [NSUserDefaults standardUserDefaults];
+    NSLog(@"%@",data);
 	[defaults setObject: data forKey: @"authData"];
 	[defaults synchronize];
     self.modalTwitterView.hidden = NO;
 }
 
 - (NSString *) cachedTwitterOAuthDataForUsername: (NSString *) username {
+    NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey: @"authData"]);
+    
+    NSArray *twUserData = [[[NSUserDefaults standardUserDefaults] objectForKey: @"authData"] componentsSeparatedByString:@"&"];
+    NSString *userid = [[twUserData objectAtIndex:2] stringByReplacingOccurrencesOfString:@"user_id=" withString:@""];
+    NSLog(@"Image: %@",[NSString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@.json",userid]);
+    NSURL *theTWProfilePicURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@.json",userid]];
+    self.userTWProfileImage.image =  [UIImage imageWithData:[NSData dataWithContentsOfURL:theTWProfilePicURL]];
+    
 	return [[NSUserDefaults standardUserDefaults] objectForKey: @"authData"];
 }
 

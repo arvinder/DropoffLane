@@ -757,6 +757,14 @@ aXQubHkvUjU0R0MgKHZpYSBAT2ZmbGFuZSk</string>
 					<int key="connectionID">101</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">userTWProfileImage</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="656413366"/>
+					</object>
+					<int key="connectionID">102</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">touchSaveArticle:</string>
 						<reference key="source" ref="172130003"/>
@@ -1054,7 +1062,7 @@ aXQubHkvUjU0R0MgKHZpYSBAT2ZmbGFuZSk</string>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">101</int>
+			<int key="maxID">102</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1125,6 +1133,7 @@ aXQubHkvUjU0R0MgKHZpYSBAT2ZmbGFuZSk</string>
 						<string key="twitterArticleTitle">UILabel</string>
 						<string key="twitterTextView">UITextView</string>
 						<string key="userFBProfileImage">UIImageView</string>
+						<string key="userTWProfileImage">UIImageView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="btnEmailArticle">
@@ -1201,6 +1210,10 @@ aXQubHkvUjU0R0MgKHZpYSBAT2ZmbGFuZSk</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="userFBProfileImage">
 							<string key="name">userFBProfileImage</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="userTWProfileImage">
+							<string key="name">userTWProfileImage</string>
 							<string key="candidateClassName">UIImageView</string>
 						</object>
 					</dictionary>
